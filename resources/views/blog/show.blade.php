@@ -18,6 +18,20 @@
     <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
         {{ $post->description }}
     </p>
+
+    @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
+    <span class="float-right">
+        <a href="/blog/{{ $post->slug }}/edit" class="bg-white-rounded-lg shadow-lg p-4 uppercase border border-blue cursor-pointer">Edit</a>
+    </span>
+    <span class="float-left">
+        <form action="/blog/{{ $post->slug }}" method="POST">
+            @csrf
+            @method('DELETE')
+
+            <button class="bg-white-rounded-lg text-red-500 shadow-lg p-4 uppercase border border-blue cursor-pointer" type="submit">Delete</button>
+        </form>
+    </span>
+    @endif
 </div>
 
 @endsection

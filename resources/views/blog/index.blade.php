@@ -10,7 +10,7 @@
 
 @if(session()->has('message'))
 <div class="w-4/5 m-auto mt-10 pl-2">
-    <p class="w-full text-gray-50 bg-green-500 rounded-2xl py-4">
+    <p class="w-full text-gray-50 bg-green-500 rounded-2xl py-4 px-4">
         {{ session()->get('message') }}
     </p>
 </div>
@@ -22,11 +22,10 @@
 </div>
 @endif
 
-{{ $posts }}
 @foreach ($posts as $post)
 <div class="sm:grid w-4/5 grid-cols-2 gap-20 mx-auto py-15 border-b border-gray-200">
     <div>
-        <img src="{{ URL::to('/images/image.jpg') }}" width="700" alt="">
+        <img src="{{ asset('images/'. $post->image_path) }}" width="700" alt="">
     </div>
     <div>
         <h2 class="text-gray-700 font-bold text-5xl pb-4">
@@ -42,11 +41,6 @@
         </p>
         <a href="/blog/{{ $post->slug }}" class="uppercase bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">keep reading</a>
 
-        @if (isset(Auth::user()->id) && Auth::user()->id == $post->user->id)
-        <span class="float-right">
-            <a href="/blog/{{ $post->slug }}/edit" class="text-gray-700 italic hover:text-gray-900 pb-1 border-b-2">Edit</a>
-        </span>
-        @endif
     </div>
 </div>
 @endforeach
